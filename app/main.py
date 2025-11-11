@@ -6,29 +6,27 @@ from contextlib import asynccontextmanager ### MUDANÇA ###
 
 from database import create_db_and_tables, get_session
 from models import ItemInventario
-
-# ### MUDANÇA ###
 # Criamos um "gerenciador de contexto" para o ciclo de vida da API
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # O que vai rodar ANTES da API iniciar (antigo 'startup')
     print("Iniciando... Criando tabelas se necessário.")
     await create_db_and_tables()
-    
-    # Este 'yield' é a fronteira.
-    # A API só começa a rodar DEPOIS dele.
+
+    # Esse yield é tipo uma barreira(?).
+    # A API só vai rodar DEPOIS dele.
     yield
     
-    # O que vai rodar DEPOIS que a API desligar (antigo 'shutdown')
-    print("Desligando... (limpeza, se necessário)")
+    # É o que vai rodar DEPOIS que a API terminar ('shutdown')
+    print("Finalizando...")
 
-# ### MUDANÇA ###
-# Passamos a função 'lifespan' para o app
 app = FastAPI(
     title="API de Controle de Inventário com SQLModel",
     version="2.0.0",
     lifespan=lifespan 
 )
+
+# AinNda vou documentar esses métodos
 
 @app.post("/itens/", 
           response_model=ItemInventario, 
@@ -102,3 +100,5 @@ async def remover_item(item_id: int,
     await session.delete(item)
     await session.commit()
     return
+
+# fui pedir ajuda pra IA e ela cagou tudo entao tive que refatorar boa parte
