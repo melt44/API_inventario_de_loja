@@ -1,0 +1,17 @@
+# Arquivos de cache do Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+.venv/
+venv/
+
+.vscode/
+.idea/
+.DS_Store
+
+.env
+*.env
+
+*.log
+*.db

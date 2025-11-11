@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  # 1. O serviço do Banco de Dados
+  db:
+    image: postgres:15-alpine  # Imagem oficial do Postgres
+    container_name: postgres_db
+    environment:
+      # Você pode alterar esses valores
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_DB=inventario_db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      # Expõe o banco na porta 5432 da sua máquina (opcional, bom para debugar)
+      - "5432:5432"
+
+  # 2. O serviço da nossa API
+  api:
+    container_name: fastapi_api
+    # Constrói a imagem usando o Dockerfile no diretório atual (.)
+    build: .
+    ports:
+      # Expõe a API na porta 8000 da sua máquina
+      - "8000:8000"
+    environment:
+      # Esta é a URL de conexão que o Python usará.
+      # Note que o host é 'db', o nome do serviço acima!
+      - DATABASE_URL=postgresql+asyncpg://admin:admin@db:5432/inventario_db
+    depends_on:
+      # Garante que o contêiner 'db' inicie antes da 'api'
+      - db
+
+# Define um volume persistente para os dados do banco
+volumes:
+  postgres_data:
