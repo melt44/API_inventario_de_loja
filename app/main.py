@@ -2,11 +2,11 @@ from fastapi import FastAPI, HTTPException, status, Depends
 from sqlmodel import SQLModel, select
 from sqlalchemy.ext.asyncio import AsyncSession
 from typing import List
-from contextlib import asynccontextmanager ### MUDANÇA ###
+from contextlib import asynccontextmanager
 
 from database import create_db_and_tables, get_session
 from models import ItemInventario
-# Criamos um "gerenciador de contexto" para o ciclo de vida da API
+# Criação de um "gerenciador de contexto" para o ciclo de vida da API
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # O que vai rodar ANTES da API iniciar (antigo 'startup')
