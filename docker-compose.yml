@@ -19,7 +19,7 @@ services:
     ports:
       - "8000:8000"
     environment:
-      # URL de conexão que o Python vai usar.
+      # URL de conexão que o Python vai usar
       - DATABASE_URL=${DATABASE_URL}
     depends_on:
       # Garante que o contêiner do postgres seja iniciado antes da api (evita erros rs)
