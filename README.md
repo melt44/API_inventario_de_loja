@@ -45,31 +45,30 @@ Você precisa ter instalado apenas:
 
 1. **Configure as Variáveis de Ambiente:**
     Crie um arquivo chamado .env na raiz do projeto e adicione as configurações do banco (você pode alterar a senha se desejar):
-
+```.env
     DB_USER=admin
     DB_PASSWORD=sua_senha_aqui
     DB_NAME=inventario_db
     DATABASE_URL=postgresql+asyncpg://admin:sua_senha_aqui@db:5432/inventario_db
-
+```
 3. **Inicie a Aplicação:**
     Execute o comando abaixo para construir as imagens e subir os contêineres:
-
+```bash
     docker-compose up --build
-
+```
 4. **Acesse a API:**
     Aguarde os logs indicarem que o servidor está rodando. A API estará disponível em: http://localhost:8000
 
 ## 📖 Documentação (Swagger UI)
 O FastAPI fornece documentação interativa automática. Com o projeto rodando, acesse:
 
-## 👉 http://localhost:8000/docs
+👉 http://localhost:8000/docs
 
 Lá você pode testar todas as rotas (GET, POST, PUT, DELETE) diretamente pelo navegador, ver os esquemas de dados e as respostas esperadas.
 
 ## 🧪 Exemplo de Uso (Curl)
 Você também pode testar via terminal. Exemplo para adicionar um item:
-
-Bash
+```Bash
 
 curl -X 'POST' \
   '[http://127.0.0.1:8000/itens/](http://127.0.0.1:8000/itens/)' \
@@ -80,14 +79,20 @@ curl -X 'POST' \
   "preco": 4500.00,
   "quantidade": 5
 }'
+```
 ## 📂 Estrutura do Projeto
+```
 .
 ├── app/
-│   ├── __init__.py
+│   ├── __init__.py        # Indica ao Python que 'app' é um pacote
 │   ├── main.py          # Ponto de entrada e rotas da API
 │   ├── models.py        # Modelos de dados (SQLModel)
 │   └── database.py      # Configuração de conexão com o DB
+│
+├── .env                 # Arquivo local de variáveis de ambiente (ignorado pelo Git)
+├── .gitignore           # Arquivos a serem ignorados pelo Git
 ├── docker-compose.yml   # Orquestração dos serviços (API + DB)
 ├── Dockerfile           # Definição da imagem da aplicação
 ├── requirements.txt     # Dependências do Python
 └── README.md            # Documentação
+```
