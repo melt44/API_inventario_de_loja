@@ -4,4 +4,3 @@ sqlmodel
 sqlalchemy>=2.0
 asyncpg
 python-dotenv
-psycopg2-binary
