@@ -4,7 +4,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from typing import List
 from contextlib import asynccontextmanager
 
-from database import create_db_and_tables, get_session
+from .database import create_db_and_tables, get_session
 from models import ItemInventario
 # Criação de um "gerenciador de contexto" para o ciclo de vida da API
 @asynccontextmanager
