@@ -13,8 +13,6 @@ async def lifespan(app: FastAPI):
     print("Iniciando... Criando tabelas se necessário.")
     await create_db_and_tables()
 
-    # Esse yield é tipo uma barreira(?).
-    # A API só vai rodar DEPOIS dele.
     yield
     
     # É o que vai rodar DEPOIS que a API terminar ('shutdown')
